@@ -145,7 +145,7 @@
                     </div>
 
                     <div class="form-group text-center mb-0">
-                        <p class="extra">Not a member?<a href="{{ url('#et-register-wrap') }}" class="text-dark">
+                        <p class="extra">Not a member?<a href="{{ route('register.page') }}" class="text-dark">
                                 Register</a></p>
                     </div>
                 </form>

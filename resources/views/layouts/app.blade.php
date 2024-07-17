@@ -11,6 +11,8 @@
     <!-- Custom CSS -->
     <link href="{{ url('assets/css/styles.css') }}" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 
 <body>
