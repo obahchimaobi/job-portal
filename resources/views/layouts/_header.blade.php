@@ -31,63 +31,13 @@
 
                             <li><a href="{{ route('index') }}">Home</a></li>
 
-                            <li><a href="{{ url('javascript:void(0);') }}">Find Job</a>
-                                <ul class="nav-dropdown nav-submenu">
-                                    <li><a href="{{ url('job-search-v1.html') }}">Job Search V1</a></li>
-                                    <li><a href="{{ url('job-search-v2.html') }}">Job Search V2</a></li>
-                                    <li><a href="{{ url('job-search-v3.html') }}">Job Search V3</a></li>
-                                    <li><a href="{{ url('job-list-v1.html') }}">Job Search V4</a></li>
-                                    <li><a href="{{ url('job-list-v2.html') }}">Job Search V5</a></li>
-                                    <li><a href="{{ url('job-list-v3.html') }}">Job Search V6</a></li>
-                                    <li><a href="{{ url('javascript:void(0);') }}">Map Styles</a>
-                                        <ul class="nav-dropdown nav-submenu">
-                                            <li><a href="{{ url('job-half-map.html') }}">Search On Map V1</a></li>
-                                            <li><a href="{{ url('job-half-map-v2.html') }}">Search On Map V2</a></li>
-                                            <li><a href="{{ url('job-search-map-v1.html') }}">Search On Map V3</a></li>
-                                            <li><a href="{{ url('job-search-map-v2.html') }}">Search On Map V4</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="{{ url('javascript:void(0);') }}">Single Job</a>
-                                        <ul class="nav-dropdown nav-submenu">
-                                            <li><a href="{{ url('single-job-1.html') }}">Single Job V1</a></li>
-                                            <li><a href="{{ url('single-job-2.html') }}">Single Job V2</a></li>
-                                            <li><a href="{{ url('single-job-3.html') }}">Single Job V3</a></li>
-                                            <li><a href="{{ url('single-job-4.html') }}">Single Job V4</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('find.job') }}">Find Job</a></li>
 
-                            <li><a href="{{ url('javascript:void(0);') }}">Candidates</a>
-                                <ul class="nav-dropdown nav-submenu">
-                                    <li><a href="{{ url('browse-jobs.html') }}">Browse Jobs</a></li>
-                                    <li><a href="{{ url('browse-resumes.html') }}">Browse Resumes</a></li>
-                                    <li><a href="{{ url('browse-category.html') }}">Browse Categories</a></li>
-                                    <li><a href="{{ url('candidate-detail.html') }}">Candidate Detail</a></li>
-                                    <li><a href="{{ url('candidate-dashboard.html') }}">Candidate Dashboard</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('candidates') }}">Candidates</a></li>
 
-                            <li><a href="{{ url('javascript:void(0);') }}">Employers</a>
-                                <ul class="nav-dropdown nav-submenu">
-                                    <li><a href="{{ url('browse-employers.html') }}">Browse Employers V1</a></li>
-                                    <li><a href="{{ url('browse-employers-list.html') }}">Browse Employers V2</a></li>
-                                    <li><a href="{{ url('employer-detail.html') }}">Employer Detail</a></li>
-                                    <li><a href="{{ url('employer-dashboard.html') }}">Employer Dashboard</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('about-us') }}">About Us</a></li>
 
-                            <li><a href="{{ url('javascript:void(0);') }}">Pages</a>
-                                <ul class="nav-dropdown nav-submenu">
-                                    <li><a href="{{ url('blog.html') }}">Blog Style</a></li>
-                                    <li><a href="{{ url('about-us.html') }}">About Us</a></li>
-                                    <li><a href="{{ url('contact.html') }}">Contact</a></li>
-                                    <li><a href="{{ url('404.html') }}">404 Page</a></li>
-                                    <li><a href="{{ url('privacy.html') }}">Privacy Policy</a></li>
-                                    <li><a href="{{ url('faq.html') }}">FAQs</a></li>
-                                    <li><a href="{{ url('docs.html') }}">Docs</a></li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ route('contact') }}">Contact Us</a></li>
 
                         </ul>
 
