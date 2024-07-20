@@ -19,27 +19,40 @@
     </div>
     <!-- ======================= Top Breadcrubms ======================== -->
 
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                title: "{{ session('error') }}",
+                // text: "Verify your email!",
+                icon: "error"
+            });
+        </script>
+    @endif
+
     <!-- ======================= Login Detail ======================== -->
     <section class="middle">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-start justify-content-center">
 
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 m-auto">
-                    <form class="border p-3 rounded">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <h5>Candidate Login</h5>
+                    <form class="border p-3 rounded" action="{{ route('login.candidate') }}" method="post">
+
+                        {{ csrf_field() }}
                         <div class="form-group">
-                            <label>User Name *</label>
-                            <input type="text" class="form-control" placeholder="Username*">
+                            <label>Candidate Email *</label>
+                            <input type="email" class="form-control" placeholder="Candidate Email*" name="candidate_email">
                         </div>
 
                         <div class="form-group">
                             <label>Password *</label>
-                            <input type="password" class="form-control" placeholder="Password*">
+                            <input type="password" name="candidate_password" class="form-control" placeholder="Password*">
                         </div>
 
                         <div class="form-group">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="flex-1">
-                                    <input id="dd" class="checkbox-custom" name="dd" type="checkbox">
+                                    <input id="dd" class="checkbox-custom" name="candidate_remember" type="checkbox">
                                     <label for="dd" class="checkbox-custom-label">Remember Me</label>
                                 </div>
                                 <div class="eltio_k2">
@@ -53,6 +66,45 @@
                                 class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>
                         </div>
                     </form>
+                </div>
+
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <h5>Employer Login</h5>
+                    <form class="border p-3 rounded">
+
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label>Employer Email *</label>
+                            <input type="email" name="employer_email" class="form-control" placeholder="Employer Email*">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password *</label>
+                            <input type="password" name="employer_password" class="form-control" placeholder="Password*">
+                        </div>
+
+                        <div class="form-group">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="flex-1">
+                                    <input id="dd" class="checkbox-custom" name="employer_remember" type="checkbox">
+                                    <label for="dd" class="checkbox-custom-label">Remember Me</label>
+                                </div>
+                                <div class="eltio_k2">
+                                    <a href="#">Lost Your Password?</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit"
+                                class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="form-group text-center mb-0 mt-3">
+                    <p class="extra">Not a memeber?<a href="{{ route('register.page') }}" class="text-dark">
+                            Register</a></p>
                 </div>
             </div>
         </div>

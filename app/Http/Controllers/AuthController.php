@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Candidate;
+use App\Models\Employer;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -24,11 +25,15 @@ class AuthController extends Controller
             'name' => 'required',
             'email' => 'required',
             'type' => 'required',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
         ]);
 
-        User::create($request->all());
-        
+        if ($request->type == 'Candidate') {
+            Candidate::create($request->all());
+        } elseif ($request->type == 'Employer') {
+            Employer::create($request->all());
+        }
+
         return redirect()->route('register.page')->with('status', 'Regsiteration Successful');
     }
 }

@@ -43,7 +43,7 @@
 
                         <ul class="nav-menu nav-menu-social align-to-right">
                             <li>
-                                <a href="{{ url('#') }}" data-toggle="modal" data-target="#login" class="theme-cl ft-medium">
+                                <a href="{{ route('login.page') }}" class="theme-cl ft-medium">
                                     <i class="lni lni-user mr-2"></i>Sign In
                                 </a>
                             </li>

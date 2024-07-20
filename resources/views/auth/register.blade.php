@@ -124,6 +124,11 @@
                             <button type="submit" class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Create
                                 An Account</button>
                         </div>
+
+                        <div class="form-group text-center mb-0">
+                            <p class="extra">Already a memeber?<a href="{{ route('login.page') }}" class="text-dark">
+                                    Login</a></p>
+                        </div>
                     </form>
                 </div>
 
