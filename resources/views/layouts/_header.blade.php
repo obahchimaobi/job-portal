@@ -39,7 +39,11 @@
 
                     <li><a href="{{ route('find.job') }}">Find Job</a></li>
 
-                    <li><a href="{{ route('candidates') }}">Candidates</a></li>
+                    @if ($candidate)
+                        
+                    @else
+                        <li><a href="{{ route('candidates') }}">Candidates</a></li>
+                    @endif
 
                     <li><a href="{{ route('about-us') }}">About Us</a></li>
 

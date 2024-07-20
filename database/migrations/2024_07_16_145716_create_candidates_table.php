@@ -18,6 +18,23 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('candidate_password');
             $table->rememberToken();
+            $table->string('job_name')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('job_type')->nullable();
+            $table->string('job_category')->nullable();
+            $table->string('experience')->nullable();
+            $table->string('education')->nullable();
+            $table->string('current_salary')->nullable();
+            $table->string('expected_salary')->nullable();
+            $table->string('age')->nullable();
+            $table->string('language')->nullable();
+            $table->string('facebook_link')->nullable();
+            $table->string('twitter_link')->nullable();
+            $table->string('linkedin_link')->nullable();
+            $table->string('github_link')->nullable();
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('full_address')->nullable();
             $table->timestamps();
         });
     }

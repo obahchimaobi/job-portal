@@ -32,7 +32,7 @@
                                     class="count-tag">4</span></a></li>
                     </ul>
                     <ul data-submenu-title="My Accounts">
-                        <li><a href="dashboard-my-profile.html"><i class="lni lni-user mr-2"></i>My Profile </a>
+                        <li><a href="{{ route('candidate.profile') }}"><i class="lni lni-user mr-2"></i>My Profile </a>
                         </li>
                         <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt mr-2"></i>Change
                                 Password</a></li>
@@ -48,7 +48,7 @@
             <div class="dashboard-tlbar d-block mb-5">
                 <div class="row">
                     <div class="colxl-12 col-lg-12 col-md-12">
-                        <h1 class="ft-medium">Hello, Adam Jesuf</h1>
+                        <h1 class="ft-medium">Hello, {{ Auth::guard('candidate')->user()->candidate_name }}</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>

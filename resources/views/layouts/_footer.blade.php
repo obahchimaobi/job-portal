@@ -1,4 +1,5 @@
-<!-- ============================ Footer Start ================================== -->
+@if (!Request::is('candidate-profile') && !Request::is('candidate-dashboard'))
+    <!-- ============================ Footer Start ================================== -->
 <footer class="dark-footer skin-dark-footer style-2">
     <div class="footer-middle">
         <div class="container">
@@ -101,3 +102,4 @@
 
 
 <a id="back2Top" class="top-scroll" title="Back to top" href="{{ url('#') }}"><i class="ti-arrow-up"></i></a>
+@endif

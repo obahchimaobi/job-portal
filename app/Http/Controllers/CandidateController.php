@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Candidate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,10 +30,24 @@ class CandidateController extends Controller
         }
     }
 
+    public function candidate_profile()
+    {
+        $user = Auth::guard('candidate')->user();
+        $user_id = $user->id;
+
+        $info = Candidate::where('id', $user_id)->first();
+        return view('components.candidate-profile', compact('info'));
+    }
+
     public function candidate_logout()
     {
         Auth::guard('candidate')->logout();
 
         return redirect()->route('login.page')->with('success', 'Logout Successful');
+    }
+
+    public function update_my_account()
+    {
+
     }
 }

@@ -34,8 +34,9 @@ Route::get('/about-us', [PageController::class, 'about_us'])->name('about-us');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 Route::middleware(['candidate'])->group(function () {
-    Route::get('/dashboard', [CandidateController::class, 'candidate_dashboard'])->name('candidate.dashboard');
-    Route::get('/logout', [CandidateController::class, 'candidate_logout'])->name('candidate.logout');
+    Route::get('/candidate-dashboard', [CandidateController::class, 'candidate_dashboard'])->name('candidate.dashboard');
+    Route::get('/candidate-logout', [CandidateController::class, 'candidate_logout'])->name('candidate.logout');
+    Route::get('/candidate-profile', [CandidateController::class, 'candidate_profile'])->name('candidate.profile');
 });
 
 Route::middleware(['employer'])->group(function () {
