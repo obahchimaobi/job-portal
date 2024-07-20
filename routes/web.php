@@ -37,6 +37,8 @@ Route::middleware(['candidate'])->group(function () {
     Route::get('/candidate-dashboard', [CandidateController::class, 'candidate_dashboard'])->name('candidate.dashboard');
     Route::get('/candidate-logout', [CandidateController::class, 'candidate_logout'])->name('candidate.logout');
     Route::get('/candidate-profile', [CandidateController::class, 'candidate_profile'])->name('candidate.profile');
+
+    Route::post('/update-candidate-info', [CandidateController::class, 'update_my_account'])->name('update.candidate.info');
 });
 
 Route::middleware(['employer'])->group(function () {

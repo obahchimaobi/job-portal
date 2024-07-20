@@ -1,6 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
+    @if (session('success'))
+        <script>
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.onmouseenter = Swal.stopTimer;
+                        toast.onmouseleave = Swal.resumeTimer;
+                    }
+                });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('success') }}"
+            });
+        </script>
+    @endif
     <!-- ============================================================== -->
 
     <!-- ======================= dashboard Detail ======================== -->
@@ -31,7 +50,7 @@
                                 Password</a></li>
                         <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a>
                         </li>
-                        <li><a href="login.html"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
+                        <li><a href="{{ route('candidate.logout') }}"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -66,40 +85,74 @@
                             </div>
 
                             <div class="_dashboard_content_body py-3 px-3">
-                                <form class="row">
+                                <form class="row" action="{{ route('update.candidate.info') }}" method="post"
+                                    enctype="multipart/form-data">
+
+                                    {{ csrf_field() }}
                                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                         <div class="custom-file avater_uploads">
-                                            <input type="file" class="custom-file-input" id="customFile">
-                                            <label class="custom-file-label" for="customFile"><i
-                                                    class="fa fa-user"></i></label>
+                                            <input type="file" class="custom-file-input" id="customFile" name="image">
+                                            <label class="custom-file-label" for="customFile">
+
+                                                @if ($info->image)
+                                                @else
+                                                    <i class="fa fa-user"></i>
+                                                @endif
+                                                <img src="{{ asset('storage/' . $info->image) }}" alt=""
+                                                    style="height: 100%; width: auto; border-radius: 10px;">
+                                            </label>
+
+
                                         </div>
                                     </div>
+
+
 
                                     <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
                                         <div class="row">
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Full Name</label>
-                                                    <input type="text" class="form-control rounded" value="{{ $info->candidate_name }}" name="candidate_name">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->candidate_name }}" name="candidate_name">
+
+                                                    @error('candidate_name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Job Title</label>
-                                                    <input type="text" class="form-control rounded" value="{{ $info->job_name ? $info->job_name : "Job Name" }}" name="job_name">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->job_name ? $info->job_name : 'Job Name' }}"
+                                                        name="job_name">
+
+                                                    @error('job_name')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Phone</label>
-                                                    <input type="text" class="form-control rounded" value="{{ $info->Phone ? $info->Phone : "Phone" }}">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->phone ? $info->phone : 'Phone' }}" name="phone">
+
+                                                    @error('phone')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Email</label>
                                                     <input type="email" class="form-control rounded"
-                                                        value="{{ $info->candidate_email }}">
+                                                        value="{{ $info->candidate_email }}" name="candidate_email">
+
+                                                    @error('candidate_email')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
@@ -107,9 +160,22 @@
                                                     <label class="text-dark ft-medium">Job Type</label>
                                                     <select class="custom-select rounded" name="job_type">
                                                         <option>Choose Job Type</option>
-                                                        <option value="Full Time">Full Time</option>
-                                                        <option value="Part Time">Part Time</option>
-                                                        <option value="Freelance">Freelance</option>
+                                                        <option value="Full Time"
+                                                            {{ $info->job_type == 'Full Time' ? 'selected' : '' }}>Full
+                                                            Time
+                                                        </option>
+                                                        <option value="Part Time"
+                                                            {{ $info->job_type == 'Part Time' ? 'selected' : '' }}>Part
+                                                            Time
+                                                        </option>
+                                                        <option value="Freelance"
+                                                            {{ $info->job_type == 'Freelance' ? 'selected' : '' }}>
+                                                            Freelance
+                                                        </option>
+
+                                                        @error('job_type')
+                                                            <span class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </select>
                                                 </div>
                                             </div>
@@ -118,82 +184,169 @@
                                                     <label class="text-dark ft-medium">Job Category</label>
                                                     <select class="custom-select rounded" name="job_category">
                                                         <option>Choose Categories</option>
-                                                        <option value="IT & Software">IT & Software</option>
-                                                        <option value="Bank Services">Bank Services</option>
-                                                        <option value="Hospitals">Hospitals</option>
+                                                        <option value="IT & Software"
+                                                            {{ $info->job_category == 'IT & Software' ? 'selected' : '' }}>
+                                                            IT & Software</option>
+                                                        <option value="Bank Services"
+                                                            {{ $info->job_category == 'Bank Services' ? 'selected' : '' }}>
+                                                            Bank Services</option>
+                                                        <option value="Hospitals"
+                                                            {{ $info->job_category == 'Hospitals' ? 'selected' : '' }}>
+                                                            Hospitals</option>
                                                     </select>
+
+                                                    @error('job_category')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Experience</label>
                                                     <select class="custom-select rounded" name="experience">
-                                                        <option>{{ $info->experience ? $info->experience : "Select Experience" }}</option>
-                                                        <option value="Beginner">Beginner</option>
-                                                        <option value="1 Year">1 Year</option>
-                                                        <option value="2 Years">2 Years</option>
-                                                        <option value="3 Years">3 Years</option>
-                                                        <option value="4 Years">4 Years</option>
-                                                        <option value="5 Years">5 Years</option>
-                                                        <option value="6 Years">6 Years</option>
-                                                        <option value="7 Years">7 Years</option>
-                                                        <option value="8 Years">8 Years</option>
-                                                        <option value="9 Years">9 Years</option>
-                                                        <option value="10 Years">10 Years</option>
-                                                        <option value="More than 10 Years">More than 10 Years</option>
+                                                        <option>
+                                                            {{ $info->experience ? $info->experience : 'Select Experience' }}
+                                                        </option>
+                                                        <option value="Beginner"
+                                                            {{ $info->experience == 'Beginner' ? 'selected' : '' }}>
+                                                            Beginner</option>
+                                                        <option value="1 Year"
+                                                            {{ $info->experience == '1 Year' ? 'selected' : '' }}>1 Year
+                                                        </option>
+                                                        <option value="2 Years"
+                                                            {{ $info->experience == '2 Years' ? 'selected' : '' }}>2 Years
+                                                        </option>
+                                                        <option value="3 Years"
+                                                            {{ $info->experience == '3 Years' ? 'selected' : '' }}>3 Years
+                                                        </option>
+                                                        <option value="4 Years"
+                                                            {{ $info->experience == '4 Years' ? 'selected' : '' }}>4 Years
+                                                        </option>
+                                                        <option value="5 Years"
+                                                            {{ $info->experience == '5 Years' ? 'selected' : '' }}>5 Years
+                                                        </option>
+                                                        <option value="6 Years"
+                                                            {{ $info->experience == '6 Years' ? 'selected' : '' }}>6 Years
+                                                        </option>
+                                                        <option value="7 Years"
+                                                            {{ $info->experience == '7 Years' ? 'selected' : '' }}>7 Years
+                                                        </option>
+                                                        <option value="8 Years"
+                                                            {{ $info->experience == '8 Years' ? 'selected' : '' }}>8 Years
+                                                        </option>
+                                                        <option value="9 Years"
+                                                            {{ $info->experience == '9 Years' ? 'selected' : '' }}>9 Years
+                                                        </option>
+                                                        <option value="10 Years"
+                                                            {{ $info->experience == '10 Years' ? 'selected' : '' }}>10
+                                                            Years</option>
+                                                        <option value="More than 10 Years"
+                                                            {{ $info->experience == 'More than 10 Years' ? 'selected' : '' }}>
+                                                            More than 10 Years</option>
                                                     </select>
+
+                                                    @error('experience')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Education</label>
-                                                    <input type="text" class="form-control rounded" value="{{ $info->education ? $info->education : "Education" }}">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->education ? $info->education : 'Education' }}"
+                                                        name="education">
+
+                                                    @error('education')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Current Salary</label>
                                                     <select class="custom-select rounded" name="current_salary">
-                                                        <option>{{ $info->current_salary ? $info->current_salary : "Select Salary" }}</option>
-                                                        <option value="10-20 k">10-20 K</option>
-                                                        <option value="20-30 K">20-30 K</option>
-                                                        <option value="30-40 K">30-40 K</option>
-                                                        <option value="40-50 K">40-50 K</option>
-                                                        <option value="50K+">50K+</option>
+                                                        <option>
+                                                            {{ $info->current_salary ? $info->current_salary : 'Select Salary' }}
+                                                        </option>
+                                                        <option value="10-20 k"
+                                                            {{ $info->current_salary == '10-20 k' ? 'selected' : '' }}>
+                                                            10-20 K</option>
+                                                        <option value="20-30 K"
+                                                            {{ $info->current_salary == '20-30 K' ? 'selected' : '' }}>
+                                                            20-30 K</option>
+                                                        <option value="30-40 K"
+                                                            {{ $info->current_salary == '30-40 K' ? 'selected' : '' }}>
+                                                            30-40 K</option>
+                                                        <option value="40-50 K"
+                                                            {{ $info->current_salary == '40-50 K' ? 'selected' : '' }}>
+                                                            40-50 K</option>
+                                                        <option value="50K+"
+                                                            {{ $info->current_salary == '50K+' ? 'selected' : '' }}>50K+
+                                                        </option>
                                                     </select>
+
+                                                    @error('current_salary')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Expected Salary</label>
                                                     <select class="custom-select rounded" name="expected_salary">
-                                                        <option>{{ $info->expected_salary ? $info->expected_salary : "Select Salary" }}</option>
-                                                        <option value="10-20 k">10-20 K</option>
-                                                        <option value="20-30 K">20-30 K</option>
-                                                        <option value="30-40 K">30-40 K</option>
-                                                        <option value="40-50 K">40-50 K</option>
-                                                        <option value="50K+">50K+</option>
+                                                        <option>
+                                                            {{ $info->expected_salary ? $info->expected_salary : 'Select Salary' }}
+                                                        </option>
+                                                        <option value="10-20 k"
+                                                            {{ $info->expected_salary == '10-20 k' ? 'selected' : '' }}>
+                                                            10-20 K</option>
+                                                        <option value="20-30 K"
+                                                            {{ $info->expected_salary == '20-30 K' ? 'selected' : '' }}>
+                                                            20-30 K</option>
+                                                        <option value="30-40 K"
+                                                            {{ $info->expected_salary == '30-40 K' ? 'selected' : '' }}>
+                                                            30-40 K</option>
+                                                        <option value="40-50 K"
+                                                            {{ $info->expected_salary == '40-50 K' ? 'selected' : '' }}>
+                                                            40-50 K</option>
+                                                        <option value="50K+"
+                                                            {{ $info->expected_salary == '50K+' ? 'selected' : '' }}>50K+
+                                                        </option>
                                                     </select>
+
+                                                    @error('expected_salary')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Age</label>
-                                                    <input type="email" class="form-control rounded"
-                                                        value="{{ $info->age ? $info->age : "e.x 20+" }}" name="age">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->age ? $info->age : 'e.x 20+' }}" name="age">
+
+                                                    @error('age')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">Language</label>
-                                                    <input type="email" class="form-control rounded"
-                                                        value="{{ $info->language ? $info->language : "e.x Englisg, Hindi" }}" name="Language">
+                                                    <input type="text" class="form-control rounded"
+                                                        value="{{ $info->language ? $info->language : 'e.x English, Hindi' }}"
+                                                        name="language">
+
+                                                    @error('language')
+                                                        <span class="text-danger">{{ $message }}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="col-xl-12 col-lg-12">
                                                 <div class="form-group">
                                                     <label class="text-dark ft-medium">About Info</label>
-                                                    <textarea class="form-control with-light" name="about">{{ $info->about ? $info->about : "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi" }}</textarea>
+                                                    <textarea class="form-control with-light" name="about">{{ $info->about ? $info->about : 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi' }}</textarea>
                                                 </div>
                                             </div>
 
@@ -206,8 +359,8 @@
                                             </div>
                                         </div>
                                     </div>
-
                                 </form>
+
                             </div>
                         </div>
                     </div>
@@ -229,28 +382,28 @@
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Facebook</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="https://www.facebook.com/">
+                                                placeholder="{{ $info->facebook_link ? $info->facebook_link : 'https://www.facebook.com/' }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Twitter</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="https://www.twitter.com/">
+                                                placeholder="{{ $info->twitter_link ? $info->twitter_link : 'https://www.twitter.com/' }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">LinkedIn</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="https://www.linkedin.com/">
+                                                placeholder="{{ $info->linkedin_link ? $info->linkedin_link : 'https://www.linkedin.com/' }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">GitHub</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="https://www.gplus.com/">
+                                                placeholder="{{ $info->github_link ? $info->github_link : 'https://www.github.com/' }}">
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12">
@@ -277,37 +430,28 @@
 
                             <div class="_dashboard_content_body py-3 px-3">
                                 <form class="row">
-                                    <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Country</label>
-                                            <select class="custom-select rounded">
-                                                <option>Australia</option>
-                                                <option>United States</option>
-                                                <option>United Kingdom</option>
-                                                <option>China</option>
-                                                <option>India</option>
-                                                <option>Pakistan</option>
-                                            </select>
+                                            <input type="text" class="form-control rounded"
+                                                placeholder="{{ $info->country ? $info->country : 'e.x Australia' }}"
+                                                name="country">
                                         </div>
                                     </div>
-                                    <div class="col-xl-6 col-lg-6 col-md-12">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">City</label>
-                                            <select class="custom-select rounded">
-                                                <option>Madhya Pradesh</option>
-                                                <option>Punjab</option>
-                                                <option>Uttar Pradesh</option>
-                                                <option>Arudachal</option>
-                                                <option>Nepal</option>
-                                                <option>Afganistan</option>
-                                            </select>
+                                            <input type="text" class="form-control rounded"
+                                                placeholder="{{ $info->city ? $info->city : 'e.x Townville City' }}"
+                                                name="city">
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Full Address</label>
                                             <input type="password" class="form-control rounded"
-                                                placeholder="#10 Marke Juger, SBI Road">
+                                                placeholder="{{ $info->full_address ? $info->full_address : '#10 Marke Juger, SBI Road' }}"
+                                                name="full_address">
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12">

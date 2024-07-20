@@ -20,7 +20,7 @@
             <div class="dashboard-nav">
                 <div class="dashboard-inner">
                     <ul data-submenu-title="Main Navigation">
-                        <li class="active"><a href="candidate-dashboard.html"><i
+                        <li class="active"><a href="{{ route('candidate.dashboard') }}"><i
                                     class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
                         <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create
                                 Resume</a></li>
@@ -32,13 +32,13 @@
                                     class="count-tag">4</span></a></li>
                     </ul>
                     <ul data-submenu-title="My Accounts">
-                        <li><a href="{{ route('candidate.profile') }}"><i class="lni lni-user mr-2"></i>My Profile </a>
-                        </li>
+                        <li><a href="{{ route('candidate.profile') }}"><i class="lni lni-user mr-2"></i>My Profile
+                            </a></li>
                         <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt mr-2"></i>Change
                                 Password</a></li>
                         <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a>
                         </li>
-                        <li><a href="login.html"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
+                        <li><a href="{{ route('candidate.logout') }}"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
                     </ul>
                 </div>
             </div>

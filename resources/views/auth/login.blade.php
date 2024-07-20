@@ -97,7 +97,7 @@
                         <div class="form-group">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="flex-1">
-                                    <input id="dd" class="checkbox-custom2" name="employer_remember" type="checkbox">
+                                    <input id="dd" class="checkbox-custom" name="employer_remember" type="checkbox">
                                     <label for="dd" class="checkbox-custom-label">Remember Me</label>
                                 </div>
                                 <div class="eltio_k2">

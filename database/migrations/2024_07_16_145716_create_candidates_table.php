@@ -18,8 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('candidate_password');
             $table->rememberToken();
+            $table->string('image')->nullable();
             $table->string('job_name')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('job_type')->nullable();
             $table->string('job_category')->nullable();
             $table->string('experience')->nullable();
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('expected_salary')->nullable();
             $table->string('age')->nullable();
             $table->string('language')->nullable();
+            $table->longText('about')->nullable();
             $table->string('facebook_link')->nullable();
             $table->string('twitter_link')->nullable();
             $table->string('linkedin_link')->nullable();
