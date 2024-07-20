@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Candidate;
 use App\Models\Employer;
+use App\Models\Candidate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     //
     public function login_page()
     {
-        return view('auth.login');
+        if (!Auth::guard('employer')->check() || !Auth::guard('candidate')->check()) {
+            return view('auth.login');
+        } else {
+            // 
+        }
     }
 
     public function register_page()
@@ -29,11 +34,29 @@ class AuthController extends Controller
         ]);
 
         if ($request->type == 'Candidate') {
-            Candidate::create($request->all());
-        } elseif ($request->type == 'Employer') {
-            Employer::create($request->all());
-        }
+            
+            $candidate = new Candidate([
+                'candidate_name' => $request->name,
+                'candidate_email' => $request->email,
+                'candidate_password' => bcrypt($request->password),
+            ]);
 
-        return redirect()->route('register.page')->with('status', 'Regsiteration Successful');
+            $candidate->save();
+
+            return redirect()->route('register.page')->with('status', 'Regsiteration Successful');
+
+        } elseif ($request->type == 'Employer') {
+
+            $employer = new Employer([
+                'employer_name' => $request->name,
+                'employer_email' => $request->email,
+                'employer_password' => bcrypt($request->password),
+            ]);
+
+            $employer->save();
+
+            return redirect()->route('register.page')->with('status', 'Regsiteration Successful');
+
+        }
     }
 }

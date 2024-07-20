@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    {{-- @if (Auth::guard('employer')->check())
+        @php
+            header('Location: ' . route('employer.dashboard'));
+            exit();
+        @endphp
+    @endif --}}
     <!-- ======================= Top Breadcrubms ======================== -->
     <div class="gray py-3">
         <div class="container">
@@ -29,6 +35,15 @@
         </script>
     @endif
 
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: "{{ session('success') }}",
+                icon: "success"
+            });
+        </script>
+    @endif
+
     <!-- ======================= Login Detail ======================== -->
     <section class="middle">
         <div class="container">
@@ -41,7 +56,8 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label>Candidate Email *</label>
-                            <input type="email" class="form-control" placeholder="Candidate Email*" name="candidate_email">
+                            <input type="email" class="form-control" placeholder="Candidate Email*"
+                                name="candidate_email">
                         </div>
 
                         <div class="form-group">
@@ -68,9 +84,10 @@
                     </form>
                 </div>
 
+                {{-- EMPLOYER LOGIN TAB --}}
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <h5>Employer Login</h5>
-                    <form class="border p-3 rounded">
+                    <form class="border p-3 rounded" action="{{ route('login.employer') }}" method="post">
 
                         {{ csrf_field() }}
                         <div class="form-group">
@@ -86,7 +103,7 @@
                         <div class="form-group">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="flex-1">
-                                    <input id="dd" class="checkbox-custom" name="employer_remember" type="checkbox">
+                                    <input id="dd" class="checkbox-custom2" name="employer_remember" type="checkbox">
                                     <label for="dd" class="checkbox-custom-label">Remember Me</label>
                                 </div>
                                 <div class="eltio_k2">

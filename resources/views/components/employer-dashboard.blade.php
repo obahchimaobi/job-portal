@@ -1,16 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- ======================= dashboard Detail ======================== -->
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                title: "{{ session('success') }}",
-                icon: "success"
-            });
-        </script>
-    @endif
-
     <div class="dashboard-wrap bg-light">
         <a class="mobNavigation" data-toggle="collapse" href="#MobNav" role="button" aria-expanded="false"
             aria-controls="MobNav">
@@ -20,14 +10,19 @@
             <div class="dashboard-nav">
                 <div class="dashboard-inner">
                     <ul data-submenu-title="Main Navigation">
-                        <li class="active"><a href="candidate-dashboard.html"><i
+                        <li class="active"><a href="employer-dashboard.html"><i
                                     class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
-                        <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create
-                                Resume</a></li>
-                        <li><a href="dashboard-applied-jobs.html"><i class="lni lni-briefcase mr-2"></i>Applied
-                                jobs</a></li>
-                        <li><a href="dashboard-alert-job.html"><i class="ti-bell mr-2"></i>Alert Jobs<span
+                        <li><a href="dashboard-post-job.html"><i class="lni lni-files mr-2"></i>Post New Job</a>
+                        </li>
+                        <li><a href="dashboard-manage-jobs.html"><i class="lni lni-add-files mr-2"></i>Manage
+                                Jobs</a></li>
+                        <li><a href="dashboard-manage-applications.html"><i class="lni lni-briefcase mr-2"></i>Manage
+                                Applicants</a></li>
+                        <li><a href="dashboard-shortlisted-resume.html"><i
+                                    class="lni lni-bookmark mr-2"></i>BookmarkResumes<span
                                     class="count-tag bg-warning">4</span></a></li>
+                        <li><a href="dashboard-packages.html"><i class="lni lni-mastercard mr-2"></i>Packages</a>
+                        </li>
                         <li><a href="dashboard-messages.html"><i class="lni lni-envelope mr-2"></i>Messages<span
                                     class="count-tag">4</span></a></li>
                     </ul>
@@ -38,7 +33,7 @@
                                 Password</a></li>
                         <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a>
                         </li>
-                        <li><a href="login.html"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
+                        <li><a href="index.html"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
                     </ul>
                 </div>
             </div>
@@ -62,30 +57,30 @@
             <div class="dashboard-widg-bar d-block">
                 <div class="row">
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                        <div class="dash-widgets py-5 px-4 bg-info rounded">
+                        <div class="dash-widgets py-5 px-4 bg-success rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">46</h2>
-                            <p class="p-0 m-0 text-light fs-md">Applied Jobs</p>
+                            <p class="p-0 m-0 text-light fs-md">Submit Jobs</p>
                             <i class="lni lni-empty-file"></i>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                        <div class="dash-widgets py-5 px-4 bg-dark rounded">
+                        <div class="dash-widgets py-5 px-4 bg-purple rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">87</h2>
-                            <p class="p-0 m-0 text-light fs-md">Notifications</p>
+                            <p class="p-0 m-0 text-light fs-md">Applications</p>
                             <i class="lni lni-users"></i>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                        <div class="dash-widgets py-5 px-4 bg-warning rounded">
+                        <div class="dash-widgets py-5 px-4 bg-danger rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">312</h2>
-                            <p class="p-0 m-0 text-light fs-md">Alert Jobs</p>
+                            <p class="p-0 m-0 text-light fs-md">Notifications</p>
                             <i class="lni lni-bar-chart"></i>
                         </div>
                     </div>
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                        <div class="dash-widgets py-5 px-4 bg-purple rounded">
+                        <div class="dash-widgets py-5 px-4 bg-blue rounded">
                             <h2 class="ft-medium mb-1 fs-xl text-light">32</h2>
-                            <p class="p-0 m-0 text-light fs-md">Bookmark jobs</p>
+                            <p class="p-0 m-0 text-light fs-md">Bookmark</p>
                             <i class="lni lni-heart"></i>
                         </div>
                     </div>
@@ -251,5 +246,4 @@
         </div>
 
     </div>
-    <!-- ======================= dashboard Detail End ======================== -->
 @endsection

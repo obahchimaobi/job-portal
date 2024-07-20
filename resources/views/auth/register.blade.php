@@ -34,37 +34,6 @@
         <div class="container">
             <div class="row">
 
-                {{-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <form class="border p-3 rounded">
-                        <div class="form-group">
-                            <label>User Name *</label>
-                            <input type="text" class="form-control" placeholder="Username*">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Password *</label>
-                            <input type="password" class="form-control" placeholder="Password*">
-                        </div>
-
-                        <div class="form-group">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="flex-1">
-                                    <input id="dd" class="checkbox-custom" name="dd" type="checkbox">
-                                    <label for="dd" class="checkbox-custom-label">Remember Me</label>
-                                </div>
-                                <div class="eltio_k2">
-                                    <a href="#">Lost Your Password?</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <button type="submit"
-                                class="btn btn-md full-width theme-bg text-light fs-md ft-medium">Login</button>
-                        </div>
-                    </form>
-                </div> --}}
-
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mfliud m-auto">
                     <form class="border p-3 rounded" action="{{ route('register') }}" method="post">
 
