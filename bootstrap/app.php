@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\CandidateMiddleware;
 use App\Http\Middleware\EmployerMiddleware;
+use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'candidate' => CandidateMiddleware::class,
             'employer' => EmployerMiddleware::class,
+            'redirect.if.authenticated' => RedirectIfAuthenticated::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

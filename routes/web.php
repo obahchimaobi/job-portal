@@ -13,13 +13,14 @@ Route::get('/', function () {
 });
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/login', [AuthController::class, 'login_page'])->name('login.page');
-Route::get('/register', [AuthController::class, 'register_page'])->name('register.page');
+
+Route::get('/login', [AuthController::class, 'login_page'])->name('login.page')->middleware('redirect.if.authenticated');
+Route::get('/register', [AuthController::class, 'register_page'])->name('register.page')->middleware('redirect.if.authenticated');
 
 // Auth Routes
 Route::post('/register', [AuthController::class, 'register'])->name('register');
-Route::post('/login-candidate', [CandidateController::class, 'candidate_login'])->name('login.candidate');
 
+Route::post('/login-candidate', [CandidateController::class, 'candidate_login'])->name('login.candidate');
 Route::post('/login-employer', [EmployerController::class, 'employer_login'])->name('login.employer');
 
 // Jobs Routes
@@ -37,7 +38,7 @@ Route::middleware(['candidate'])->group(function () {
     Route::get('/logout', [CandidateController::class, 'candidate_logout'])->name('candidate.logout');
 });
 
-Route::middleware(['employer'])->group(function() {
+Route::middleware(['employer'])->group(function () {
     Route::get('/dashboard', [EmployerController::class, 'employer_dashboard'])->name('employer.dashboard');
     Route::get('/logout', [EmployerController::class, 'employer_logout'])->name('employer.logout');
 });

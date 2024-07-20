@@ -43,10 +43,10 @@
             <div class="dashboard-tlbar d-block mb-5">
                 <div class="row">
                     <div class="colxl-12 col-lg-12 col-md-12">
-                        <h1 class="ft-medium">Hello, Adam Jesuf</h1>
+                        <h1 class="ft-medium">Hello, {{ Auth::guard('employer')->user()->employer_name }}</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item text-muted"><a href="{{ route('employer.dashboard') }}">Home</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="theme-cl">Dashboard</a></li>
                             </ol>
                         </nav>

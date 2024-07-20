@@ -19,7 +19,7 @@ class EmployerMiddleware
         if (! Auth::guard('employer')->check()) {
             return redirect()->route('login.page')->with('error', 'Login required');
         }
-        
+
         return $next($request);
     }
 }

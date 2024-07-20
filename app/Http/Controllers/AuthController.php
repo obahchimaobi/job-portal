@@ -2,21 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employer;
 use App\Models\Candidate;
+use App\Models\Employer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     //
     public function login_page()
     {
-        if (!Auth::guard('employer')->check() || !Auth::guard('candidate')->check()) {
-            return view('auth.login');
-        } else {
-            // 
-        }
+        return view('auth.login');
     }
 
     public function register_page()
@@ -34,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         if ($request->type == 'Candidate') {
-            
+
             $candidate = new Candidate([
                 'candidate_name' => $request->name,
                 'candidate_email' => $request->email,

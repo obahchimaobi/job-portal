@@ -1,12 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    {{-- @if (Auth::guard('employer')->check())
-        @php
-            header('Location: ' . route('employer.dashboard'));
-            exit();
-        @endphp
-    @endif --}}
     <!-- ======================= Top Breadcrubms ======================== -->
     <div class="gray py-3">
         <div class="container">
