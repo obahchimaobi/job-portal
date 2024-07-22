@@ -21,19 +21,40 @@
 
     @if (session('error'))
         <script>
-            Swal.fire({
-                title: "{{ session('error') }}",
-                // text: "Verify your email!",
-                icon: "error"
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "error",
+                title: "{{ session('error') }}"
             });
         </script>
     @endif
 
     @if (session('success'))
         <script>
-            Swal.fire({
-                title: "{{ session('success') }}",
-                icon: "success"
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
+            Toast.fire({
+                icon: "success",
+                title: "{{ session('success') }}"
             });
         </script>
     @endif
@@ -52,11 +73,19 @@
                             <label>Candidate Email *</label>
                             <input type="email" class="form-control" placeholder="Candidate Email*"
                                 name="candidate_email">
+
+                                @error('candidate_email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                         </div>
 
                         <div class="form-group">
                             <label>Password *</label>
                             <input type="password" name="candidate_password" class="form-control" placeholder="Password*">
+
+                            @error('candidate_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="form-group">

@@ -39,6 +39,16 @@ Route::middleware(['candidate'])->group(function () {
     Route::get('/candidate-profile', [CandidateController::class, 'candidate_profile'])->name('candidate.profile');
 
     Route::post('/update-candidate-info', [CandidateController::class, 'update_my_account'])->name('update.candidate.info');
+
+    Route::post('/update-socials', [CandidateController::class, 'update_social_links'])->name('update.socials');
+
+    Route::post('/update-contact-info', [CandidateController::class, 'update_contact_info'])->name('update.contact');
+
+    Route::get('/applied-jobs', [CandidateController::class, 'applied_jobs'])->name('candidate.applied-jobs');
+
+    Route::get('/change-password', [CandidateController::class, 'change_password_page'])->name('candidate.update.password');
+
+    Route::post('/update-password', [CandidateController::class, 'update_password'])->name('change.password');
 });
 
 Route::middleware(['employer'])->group(function () {

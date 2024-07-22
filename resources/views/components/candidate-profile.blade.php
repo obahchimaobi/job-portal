@@ -3,17 +3,17 @@
 @section('content')
     @if (session('success'))
         <script>
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: "top-end",
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.onmouseenter = Swal.stopTimer;
-                        toast.onmouseleave = Swal.resumeTimer;
-                    }
-                });
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.onmouseenter = Swal.stopTimer;
+                    toast.onmouseleave = Swal.resumeTimer;
+                }
+            });
             Toast.fire({
                 icon: "success",
                 title: "{{ session('success') }}"
@@ -23,38 +23,6 @@
     <!-- ============================================================== -->
 
     <!-- ======================= dashboard Detail ======================== -->
-    <div class="dashboard-wrap bg-light">
-        <a class="mobNavigation" data-toggle="collapse" href="#MobNav" role="button" aria-expanded="false"
-            aria-controls="MobNav">
-            <i class="fas fa-bars mr-2"></i>Dashboard Navigation
-        </a>
-        <div class="collapse" id="MobNav">
-            <div class="dashboard-nav">
-                <div class="dashboard-inner">
-                    <ul data-submenu-title="Main Navigation">
-                        <li><a href="{{ route('candidate.dashboard') }}"><i class="lni lni-dashboard mr-2"></i>Dashboard</a>
-                        </li>
-                        <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create
-                                Resume</a></li>
-                        <li><a href="dashboard-applied-jobs.html"><i class="lni lni-briefcase mr-2"></i>Applied
-                                jobs</a></li>
-                        <li><a href="dashboard-alert-job.html"><i class="ti-bell mr-2"></i>Alert Jobs<span
-                                    class="count-tag bg-warning">4</span></a></li>
-                        <li><a href="dashboard-messages.html"><i class="lni lni-envelope mr-2"></i>Messages<span
-                                    class="count-tag">4</span></a></li>
-                    </ul>
-                    <ul data-submenu-title="My Accounts">
-                        <li class="active"><a href="dashboard-my-profile.html"><i class="lni lni-user mr-2"></i>My Profile
-                            </a></li>
-                        <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt mr-2"></i>Change
-                                Password</a></li>
-                        <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a>
-                        </li>
-                        <li><a href="{{ route('candidate.logout') }}"><i class="lni lni-power-switch mr-2"></i>Log Out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
 
         <div class="dashboard-content">
             <div class="dashboard-tlbar d-block mb-5">
@@ -63,8 +31,8 @@
                         <h1 class="ft-medium">My Profile</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item text-muted"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item text-muted"><a href="#">Dashboard</a></li>
+                                <li class="breadcrumb-item text-muted"><a href="{{ route('index') }}">Home</a></li>
+                                <li class="breadcrumb-item text-muted"><a href="{{ route('candidate.dashboard') }}">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="#" class="theme-cl">My Profile</a>
                                 </li>
                             </ol>
@@ -101,9 +69,11 @@
                                                 <img src="{{ asset('storage/' . $info->image) }}" alt=""
                                                     style="height: 100%; width: auto; border-radius: 10px;">
                                             </label>
-
-
                                         </div>
+
+                                        @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
 
@@ -377,33 +347,51 @@
                             </div>
 
                             <div class="_dashboard_content_body py-3 px-3">
-                                <form class="row">
+                                <form class="row" action="{{ route('update.socials') }}" method="post">
+
+                                    {{ csrf_field() }}
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Facebook</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->facebook_link ? $info->facebook_link : 'https://www.facebook.com/' }}">
+                                                value="{{ $info->facebook_link ? $info->facebook_link : 'https://www.facebook.com/' }}" name="facebook_link">
+
+                                                @error('facebook_link')
+                                                    <span @class(['text-danger'])>{{ $message }}</span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Twitter</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->twitter_link ? $info->twitter_link : 'https://www.twitter.com/' }}">
+                                                value="{{ $info->twitter_link ? $info->twitter_link : 'https://www.twitter.com/' }}" name="twitter_link">
+
+                                                @error('twitter_link')
+                                                    <span @class(['text-danger'])>{{ $message }}</span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">LinkedIn</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->linkedin_link ? $info->linkedin_link : 'https://www.linkedin.com/' }}">
+                                                value="{{ $info->linkedin_link ? $info->linkedin_link : 'https://www.linkedin.com/' }}" name="linkedin_link">
+
+                                                @error('linkedin_link')
+                                                    <span @class(['text-danger'])>{{ $message }}</span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">GitHub</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->github_link ? $info->github_link : 'https://www.github.com/' }}">
+                                            value="{{ $info->github_link ? $info->github_link : 'https://www.github.com/' }}" name="github_link">
+
+                                                @error('github_link')
+                                                    <span @class(['text-danger'])>{{ $message }}</span>
+                                                @enderror
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12">
@@ -429,12 +417,14 @@
                             </div>
 
                             <div class="_dashboard_content_body py-3 px-3">
-                                <form class="row">
+                                <form class="row" action="{{ route('update.contact') }}" method="post">
+
+                                    {{ csrf_field() }}
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Country</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->country ? $info->country : 'e.x Australia' }}"
+                                                value="{{ $info->country ? $info->country : 'e.x Australia' }}"
                                                 name="country">
                                         </div>
                                     </div>
@@ -442,15 +432,15 @@
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">City</label>
                                             <input type="text" class="form-control rounded"
-                                                placeholder="{{ $info->city ? $info->city : 'e.x Townville City' }}"
+                                                value="{{ $info->city ? $info->city : 'e.x Townville City' }}"
                                                 name="city">
                                         </div>
                                     </div>
                                     <div class="col-xl-12 col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label class="text-dark ft-medium">Full Address</label>
-                                            <input type="password" class="form-control rounded"
-                                                placeholder="{{ $info->full_address ? $info->full_address : '#10 Marke Juger, SBI Road' }}"
+                                            <input type="text" class="form-control rounded"
+                                                value="{{ $info->full_address ? $info->full_address : '#10 Marke Juger, SBI Road' }}"
                                                 name="full_address">
                                         </div>
                                     </div>
@@ -470,11 +460,6 @@
             </div>
 
             <!-- footer -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="py-3">© 2022 Workplex. Designd By ThemezHub.</div>
-                </div>
-            </div>
 
         </div>
 

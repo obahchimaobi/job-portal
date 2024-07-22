@@ -40,7 +40,6 @@
                     <li><a href="{{ route('find.job') }}">Find Job</a></li>
 
                     @if ($candidate)
-                        
                     @else
                         <li><a href="{{ route('candidates') }}">Candidates</a></li>
                     @endif
@@ -104,3 +103,43 @@
 <!-- ============================================================== -->
 <!-- Top header  -->
 <!-- ============================================================== -->
+
+@php
+    $excludedRoutes = ['login', 'jobs'];
+@endphp
+
+@if (!in_array(Request::path(), $excludedRoutes))
+<div class="dashboard-wrap bg-light">
+    <a class="mobNavigation" data-toggle="collapse" href="#MobNav" role="button" aria-expanded="false"
+        aria-controls="MobNav">
+        <i class="fas fa-bars mr-2"></i>Dashboard Navigation
+    </a>
+    <div class="collapse" id="MobNav">
+        <div class="dashboard-nav">
+            <div class="dashboard-inner">
+                <ul data-submenu-title="Main Navigation">
+                    <li class=""><a href="{{ route('candidate.dashboard') }}"><i
+                                class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
+                    <li><a href="dashboard-add-resume.html"><i class="lni lni-add-files mr-2"></i>Create
+                            Resume</a></li>
+                    <li><a href="{{ route('candidate.applied-jobs') }}"><i class="lni lni-briefcase mr-2"></i>Applied
+                            jobs</a></li>
+                    <li><a href="dashboard-alert-job.html"><i class="ti-bell mr-2"></i>Alert Jobs<span
+                                class="count-tag bg-warning">4</span></a></li>
+                    <li><a href="dashboard-messages.html"><i class="lni lni-envelope mr-2"></i>Messages<span
+                                class="count-tag">4</span></a></li>
+                </ul>
+                <ul data-submenu-title="My Accounts">
+                    <li><a href="{{ route('candidate.profile') }}"><i class="lni lni-user mr-2"></i>My Profile
+                        </a></li>
+                    <li><a href="{{ route('candidate.update.password') }}"><i class="lni lni-lock-alt mr-2"></i>Change
+                            Password</a></li>
+                    <li><a href="javascript:void(0);"><i class="lni lni-trash-can mr-2"></i>Delete Account</a>
+                    </li>
+                    <li><a href="{{ route('candidate.logout') }}"><i class="lni lni-power-switch mr-2"></i>Log Out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+@endif

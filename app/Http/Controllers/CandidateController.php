@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Candidate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
@@ -91,6 +92,65 @@ class CandidateController extends Controller
         // Update the candidate's information
         $candidate->update($fields);
 
-        return redirect()->route('candidate.profile')->with('success', 'Information Updated');
+        return redirect()->route('candidate.profile')->with('success', 'Your account information has updated');
+    }
+    
+    public function update_social_links(Request $request)
+    {
+        $fields = $request->validate([
+            'facebook_link' => '',
+            'twitter_link' => '',
+            'linkedin_link' => '',
+            'github_link' => '',
+        ]);
+
+        $candidate = Auth::guard('candidate')->user();
+
+        $candidate->update($fields);
+
+        return redirect()->route('candidate.profile')->with('success', 'Your social links have been pdated');
+    }
+
+    public function update_contact_info(Request $request)
+    {
+        $fields = $request->validate([
+            'country' => '',
+            'city' => '',
+            'full_address' => '',
+        ]);
+
+        $candidate = Auth::guard('candidate')->user();
+
+        $candidate->update($fields);
+
+        return redirect()->route('candidate.profile')->with('success', 'Your contact informations have been pdated');
+    }
+
+    public function applied_jobs() {
+        return view('components.candidate-applied-jobs');
+    }
+
+    public function change_password_page()
+    {
+        return view('components.candidate-change-password');
+    }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+        ]);
+
+        $candidate = Auth::guard('candidate')->user();
+
+        if (Hash::check($request->old_password, $candidate->candidate_password)) {
+            $candidate->candidate_password = Hash::make($request->new_password);
+            $candidate->save();
+
+            return redirect()->route('candidate.update.password')->with('success', 'Password updated successfully');
+        } else {
+            return redirect()->route('candidate.update.password')->with('error', 'Password does not match');
+        }
     }
 }
